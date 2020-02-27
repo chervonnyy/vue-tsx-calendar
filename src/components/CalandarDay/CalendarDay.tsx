@@ -5,13 +5,16 @@ import MyStore from '@/store/store';
 
 import styles from './CalendarDay.css?module'
 
+interface Props {
+    date: number | undefined
+}
 @Component
-export default class CalendarDay extends VueComponent {
-
-    public store: MyStore = useStore(this.$store);
+export default class CalendarDay extends VueComponent<Props> {
 
     @Prop()
-    public date!: number
+    private date!: number
+
+    public store: MyStore = useStore(this.$store);
 
     handleClick(): void {
         if (this.date) this.store.changeActiveDay(this.date);

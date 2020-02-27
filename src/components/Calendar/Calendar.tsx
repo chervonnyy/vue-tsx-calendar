@@ -32,7 +32,6 @@ export default class Calendar extends VueComponent {
 				if (possibleDate.getMonth() !== currentMonth) {
 					break;
 				}
-
 			}
 			days[days.length] = i;
 		}
@@ -51,7 +50,7 @@ export default class Calendar extends VueComponent {
 		const daysMappedToMonth: Array<number | undefined> = this.mapDaysToMonth();
 		const daysTemplate = [];
 		for (let i: number = 0; i < daysMappedToMonth.length; i++) {
-			const date = daysMappedToMonth[i];
+			const date: number | undefined = daysMappedToMonth[i];
 			
 			// error that I didn't know how to handle 
 			daysTemplate.push(<CalendarDay date={date} />);

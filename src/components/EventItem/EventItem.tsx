@@ -6,13 +6,16 @@ import { PlannedEvent } from '@/types';
 
 import styles from './EventItem.css?module'; 
 
+interface Props {
+	data: PlannedEvent
+}
 @Component
-export default class EventItem extends VueComponent {
+export default class EventItem extends VueComponent<Props>  {
 
 	public store: MyStore = useStore(this.$store);
 
 	@Prop()
-	data!: PlannedEvent
+	private data!: PlannedEvent
 
     get completed(): boolean {
         return this.data.completed;

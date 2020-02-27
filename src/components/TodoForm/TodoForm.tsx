@@ -21,9 +21,7 @@ export default class TodoForm extends VueComponent {
 	render() {
 		const events: Array<PlannedEvent> = this.store.plansForTheDay;
 		// also didn't find what should I do with this nested components
-		const todos: Array<JSX.Element> = events.map((todo: PlannedEvent) => (
-			<EventItem data={todo} />
-		));
+		const todos: Array<JSX.Element> = events.map((todo: PlannedEvent) => <EventItem data={todo} />);
 
 		return (
 			<div class={styles.container}>
