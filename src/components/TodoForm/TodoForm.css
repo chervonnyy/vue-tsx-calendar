@@ -1,0 +1,45 @@
+.container {
+	/* display: grid; */
+	padding: 30px;
+    width: 340px;
+    height: 320px;
+	margin: auto;
+	box-shadow: 0px 0px 20px -5px lightblue;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.title {
+	font-size: 20px;
+	text-align: left;
+	margin-bottom: 30px;
+	margin-left: 10px;
+}
+
+.todo {
+    text-align: left;
+}
+
+.complete {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.input {
+    width: 180px;
+    height: 20px;
+    padding: 5px;
+    background: #fff;
+    border: 1px solid #ccc;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #2c3e50;
+}

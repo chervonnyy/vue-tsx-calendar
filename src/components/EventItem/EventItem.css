@@ -1,0 +1,21 @@
+.event {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.completed .description{
+    text-decoration: line-through;
+    color: #ccc;
+}
+
+.complete {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.description {
+    font-weight: 500;
+}
