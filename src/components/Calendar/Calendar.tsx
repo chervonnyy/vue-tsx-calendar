@@ -23,9 +23,9 @@ export default class Calendar extends VueComponent {
 	mapDaysToMonth(): Array<number | undefined> {
 		const firstDay: number = this.getFirstMonthDay(this.currentDate);
 		const days: Array<number | undefined> = [];
-		let day: number = firstDay - 1;
+		let day: number = firstDay === 0 ? 6 : firstDay - 1;
 		days[day] = 1;
-		for (let i: number = 2; i <= 30; i++, day++) {
+		for (let i: number = 2; i <= 31; i++, day++) {
 			if (i > 27) {
 				const currentMonth = this.currentDate.getMonth();
 				const possibleDate = new Date(`${this.currentDate.getFullYear()}-${currentMonth + 1}-${i}`);
@@ -35,7 +35,6 @@ export default class Calendar extends VueComponent {
 			}
 			days[days.length] = i;
 		}
-
 		return days;
 	}
 
@@ -51,20 +50,28 @@ export default class Calendar extends VueComponent {
 		const daysTemplate = [];
 		for (let i: number = 0; i < daysMappedToMonth.length; i++) {
 			const date: number | undefined = daysMappedToMonth[i];
-			
-			// error that I didn't know how to handle 
 			daysTemplate.push(<CalendarDay date={date} />);
 		}
 		return daysTemplate;
 	}
 
 	render() {
+
+		const gridClassNames: Array<string> = [styles.grid];
+		const weekdays: Array<JSX.Element> = this.mapWeekdays();
+		const days: Array<JSX.Element> = this.mapDays();
+		const weeksInMonth: number = days.length / 7;
+
+		if (weeksInMonth > 5) {
+			gridClassNames.push(styles.longMonth);
+		}
+
 		return (
 			<div class={styles.container}>
 				<CalendarHeader />
-				<div class={styles.grid}>
-					{...this.mapWeekdays()}
-					{...this.mapDays()}
+				<div class={gridClassNames.join(' ')}>
+					{...weekdays}
+					{...days}
 				</div>
 			</div>
 		);
