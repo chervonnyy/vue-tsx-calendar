@@ -9,7 +9,7 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/ban-types
     interface ElementAttributesProperty { $props: {} }
     interface IntrinsicElements {
-      [elem: string]: any
+      [elem: string]: unknown
     }
   }
 }

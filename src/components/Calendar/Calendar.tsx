@@ -1,6 +1,5 @@
 import { Component } from 'vue-property-decorator';
 import { useStore } from 'vuex-simple';
-import dayjs from 'dayjs';
 import { VueComponent } from '../../shims-vue';
 import MyStore from '@/store/store';
 import { WEEKDAYS } from '@/constants';
@@ -9,6 +8,7 @@ import CalendarDay from '../CalandarDay/CalendarDay';
 import CalendarHeader from '../CalendarHeader/CalendarHeader';
 
 import styles from './Calendar.css?module';
+import { getDaysInMonth, getFirstDayOfMonth } from '@/utils/timestamp';
 
 @Component
 export default class Calendar extends VueComponent {
@@ -31,8 +31,8 @@ export default class Calendar extends VueComponent {
   buildCalendar() {
     const calendar: number[] = [];
     // week day of the first day of the month: sunday, monday, etc.
-    const firstDayOfMonth = dayjs().date(1).day();
-    const daysInMonth = dayjs().daysInMonth();
+    const firstDayOfMonth = getFirstDayOfMonth();
+    const daysInMonth = getDaysInMonth();
 
     for (let i = 0 + 1; i <= daysInMonth + firstDayOfMonth; i++) {
       const currentDay = i <= firstDayOfMonth ? 0 : calendar[i - 1] + 1;

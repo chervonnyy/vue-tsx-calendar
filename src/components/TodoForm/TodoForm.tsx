@@ -9,33 +9,32 @@ import styles from './TodoForm.css?module';
 
 @Component
 export default class TodoForm extends VueComponent {
+  
   public store: MyStore = useStore(this.$store);
 
-  get todos() {
-    return this.store.plansForTheDay.map((todo: PlannedEvent) => <EventItem data={todo} />);
-  }
-
-  handleChange(event: any): void {
-    this.store.addNewEvent(event.target.value);
-    event.target.value = '';
+  handleChange(event: Event): void {
+    this.store.addNewEvent((event.target as HTMLInputElement).value);
+    (event.target as HTMLInputElement).value = '';
   }
 
   render() {
     return (
-			<div class={styles.container}>
-				<h2 class={styles.title}>
+      <div class={styles.container}>
+        <h2 class={styles.title}>
 					События
-				</h2>
-				<div class={styles.todos}>
-					{...this.todos}
-				</div>
-				<input
-					type="text"
-					placeholder="Новое событие"
-					class={styles.input}
-					onchange={this.handleChange}
-				/>
-			</div>
+        </h2>
+        <div class={styles.todos}>
+          {this.store.plansForTheDay.map((todo: PlannedEvent) => (
+            <EventItem data={todo} />
+          ))}
+        </div>
+        <input
+          type="text"
+          placeholder="Новое событие"
+          class={styles.input}
+          onChange={this.handleChange}
+        />
+      </div>
     );
   }
 }
