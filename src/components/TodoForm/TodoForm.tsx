@@ -21,7 +21,7 @@ export default class TodoForm extends VueComponent {
     return (
       <div class={styles.container}>
         <h2 class={styles.title}>
-					События
+					Events
         </h2>
         <div class={styles.todos}>
           {this.store.plansForTheDay.map((todo: PlannedEvent) => (
@@ -30,7 +30,7 @@ export default class TodoForm extends VueComponent {
         </div>
         <input
           type="text"
-          placeholder="Новое событие"
+          placeholder="New event"
           class={styles.input}
           onChange={this.handleChange}
         />

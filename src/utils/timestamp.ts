@@ -11,3 +11,7 @@ export const getDaysInMonth = () => {
 export const getFirstDayOfMonth = () => {
   return dayjs().date(1).day();
 };
+
+export const getCurrentDate = () => {
+  return dayjs().date();
+};

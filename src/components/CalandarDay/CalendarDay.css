@@ -16,3 +16,7 @@
 .planned {
     color: brown;
 }
+
+.today {
+    text-decoration: underline;
+}
