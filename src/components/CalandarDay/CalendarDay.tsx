@@ -4,36 +4,37 @@ import { VueComponent } from '../../shims-vue';
 import MyStore from '@/store/store';
 
 import styles from './CalendarDay.css?module';
-
-interface Props {
-    date: number | undefined
-}
 @Component
-export default class CalendarDay extends VueComponent<Props> {
-    @Prop()
-  private date!: number;
+export default class CalendarDay extends VueComponent<{ date?: number }> {
+  
+  @Prop() private date!: number;
 
-    public store: MyStore = useStore(this.$store);
+  public store: MyStore = useStore(this.$store);
 
-    handleClick(): void {
-      if (this.date) this.store.changeActiveDay(this.date);
-    }
+  handleClick(): void {
+    if (this.date) this.store.changeActiveDay(this.date);
+  }
 
-    render() {
-      const { activeDay } = this.store;
-      const { plannedDays } = this.store;
-      const classNames: Array<string> = [styles.base];
+  get isActiveDay() {
+    return this.store.activeDay === this.date;
+  }
 
-      if (activeDay === this.date) {
-        classNames.push(styles.active);
-      } else if (plannedDays.includes(this.date)) {
-        classNames.push(styles.planned);
-      }
+  get isPlannedDay() {
+    return this.store.plannedDays.includes(this.date);
+  }
 
-      return (
-            <div class={classNames.join(' ')} onClick={this.handleClick}>
-                {this.date}
-            </div>
-      );
-    }
+  get classNames() {
+    const classes = [styles.base];
+    this.isActiveDay && classes.push(styles.active);
+    this.isPlannedDay && classes.push(styles.planned);
+    return classes;
+  }
+
+  render() {
+    return (
+      <div class={this.classNames} onClick={this.handleClick}>
+        {this.date || ''}
+      </div>
+    );
+  }
 }

@@ -6,39 +6,37 @@ import { PlannedEvent } from '@/types';
 
 import styles from './EventItem.css?module';
 
-interface Props {
-	data: PlannedEvent
-}
 @Component
-export default class EventItem extends VueComponent<Props> {
+export default class EventItem extends VueComponent<{ data: PlannedEvent }> {
+	
+  @Prop() private data!: PlannedEvent;
+  
   public store: MyStore = useStore(this.$store);
 
-	@Prop()
-  private data!: PlannedEvent;
+  get classNames() {
+    const classNames = [styles.event];
+    this.data.completed && classNames.push(styles.completed);
+    return classNames;
+  }
 
-	get completed(): boolean {
-		return this.data.completed;
-	}
+  handleChange(): void {
+    this.store.changeEventStatus(this.data.id);
+  }
 
-	handleChange(): void {
-		this.store.changeEventStatus(this.data.id);
-	}
-
-	render() {
-		const classNames: Array<string> = [styles.event];
-		this.completed && classNames.push(styles.completed);
-
-		return (
-			<div class={classNames}>
-				<input
-					type="checkbox"
-					id={this.data.id}
-					class={styles.complete}
-					onChange={this.handleChange}
-					checked={this.completed}
-				/>
-				<span class={styles.description}>{this.data.body}</span>
-			</div>
-		);
-	}
+  render() {
+    return (
+      <div class={this.classNames}>
+        <input
+          type="checkbox"
+          id={this.data.id}
+          class={styles.complete}
+          onChange={this.handleChange}
+          checked={this.data.completed}
+        />
+        <span class={styles.description}>
+          {this.data.body}
+        </span>
+      </div>
+    );
+  }
 }

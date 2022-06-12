@@ -16,10 +16,10 @@ export default class App extends Vue {
 
   render() {
     return (
-			<div id="app" class={styles.app}>
-				<Calendar />
-				<TodoForm />
-			</div>
+      <div id="app" class={styles.app}>
+        <Calendar />
+        <TodoForm />
+      </div>
     );
   }
 }
