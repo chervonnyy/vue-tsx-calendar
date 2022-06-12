@@ -1,14 +1,14 @@
 interface PlannedEvent {
-	id: number, 
+	id: number,
 	body: string,
 	completed: boolean,
 	date: number
 }
 
 interface Todo {
-	id: number, 
+	id: number,
 	title: string,
 	completed: boolean
 }
 
-export { PlannedEvent, Todo }
+export { PlannedEvent, Todo };

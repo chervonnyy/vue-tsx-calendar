@@ -1,34 +1,41 @@
-import { Component, Prop } from 'vue-property-decorator';
-import { VueComponent } from '../../shims-vue';
+import { Component } from 'vue-property-decorator';
 import { useStore } from 'vuex-simple';
+import { VueComponent } from '../../shims-vue';
 import MyStore from '@/store/store';
 import { PlannedEvent } from '@/types';
 
 import EventItem from '../EventItem/EventItem';
-import styles from './TodoForm.css?module'; 
+import styles from './TodoForm.css?module';
 
 @Component
 export default class TodoForm extends VueComponent {
+  public store: MyStore = useStore(this.$store);
 
-	public store: MyStore = useStore(this.$store);
+  get todos() {
+    return this.store.plansForTheDay.map((todo: PlannedEvent) => <EventItem data={todo} />);
+  }
 
-	// not sure which type it is
-	handleChange(event: any): void {
-		this.store.addNewEvent(event.target.value);
-		event.target.value = '';
-	}
+  handleChange(event: any): void {
+    this.store.addNewEvent(event.target.value);
+    event.target.value = '';
+  }
 
-	render() {
-		const events: Array<PlannedEvent> = this.store.plansForTheDay;
-		// also didn't find what should I do with this nested components
-		const todos: Array<JSX.Element> = events.map((todo: PlannedEvent) => <EventItem data={todo} />);
-
-		return (
+  render() {
+    return (
 			<div class={styles.container}>
-				<h2 class={styles.title}>События</h2>
-				{...todos}
-				<input type="text" placeholder="Новое событие" class={styles.input} onchange={this.handleChange} />
+				<h2 class={styles.title}>
+					События
+				</h2>
+				<div class={styles.todos}>
+					{...this.todos}
+				</div>
+				<input
+					type="text"
+					placeholder="Новое событие"
+					class={styles.input}
+					onchange={this.handleChange}
+				/>
 			</div>
-		);
-	}
+    );
+  }
 }
